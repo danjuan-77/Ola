@@ -187,3 +187,4 @@ eval/backup
 *.tar
 *.zip
 *.txt
+*.pt
