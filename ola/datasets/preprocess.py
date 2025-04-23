@@ -99,7 +99,7 @@ def tokenizer_speech_question_image_token(prompt, tokenizer, image_token_index=I
 
     if return_tensors is not None:
         if return_tensors == 'pt':
-            return torch.tensor(input_ids[0], dtype=torch.long)
+            return torch.tensor(input_ids, dtype=torch.long)
         raise ValueError(f'Unsupported tensor type: {return_tensors}')
     return input_ids
 
