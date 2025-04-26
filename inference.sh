@@ -9,14 +9,14 @@
 # Text & Video Understanding
 python3 inference/infer.py --model_path "/share/nlp/tuwenming/models/THUdyh/Ola-7b" \
     --video_path "./data/test.mp4"\
-    --text "Describe this video."
+    --text "Describe what she say"
 echo "Text & Video Understanding Finished"
 
 # Text & Video Understanding
 python3 inference/infer.py --model_path "/share/nlp/tuwenming/models/THUdyh/Ola-7b" \
     --video_path "./data/test.mp4"\
     --use_audio_in_the_video \
-    --text "Describe this video."
+    --text "Describe what she say"
 echo "(use_audio_in_the_video)Text & Video Understanding Finished"
 
 
