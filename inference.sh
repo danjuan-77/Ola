@@ -6,11 +6,18 @@
 #     --text "Describe this image."
 # echo "Text & Image Understanding Finished"
 
-# # Text & Video Understanding
-# python3 inference/infer.py --model_path "/share/nlp/tuwenming/models/THUdyh/Ola-7b" \
-#     --video_path "./data/test.mp4"\
-#     --text "Describe this video."
-# echo "Text & Video Understanding Finished"
+# Text & Video Understanding
+python3 inference/infer.py --model_path "/share/nlp/tuwenming/models/THUdyh/Ola-7b" \
+    --video_path "./data/test.mp4"\
+    --text "Describe this video."
+echo "Text & Video Understanding Finished"
+
+# Text & Video Understanding
+python3 inference/infer.py --model_path "/share/nlp/tuwenming/models/THUdyh/Ola-7b" \
+    --video_path "./data/test.mp4"\
+    --use_audio_in_the_video \
+    --text "Describe this video."
+echo "(use_audio_in_the_video)Text & Video Understanding Finished"
 
 
 # # Text & Audio Understanding
@@ -20,8 +27,8 @@
 # echo "Text & Audio Understanding Finished"
 
 
-# Audio & Image Understanding
-python3 inference/infer.py --model_path "/share/nlp/tuwenming/models/THUdyh/Ola-7b" \
-    --audio_path "./data/vision_qa_image.jpg"\
-    --audio_path "./data/vision_qa_audio.wav"
-echo "Audio & Image Understandin Finished"
+# # Audio & Image Understanding
+# python3 inference/infer.py --model_path "/share/nlp/tuwenming/models/THUdyh/Ola-7b" \
+#     --audio_path "./data/vision_qa_image.jpg"\
+#     --audio_path "./data/vision_qa_audio.wav"
+# echo "Audio & Image Understandin Finished"

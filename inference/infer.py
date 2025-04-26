@@ -35,6 +35,8 @@ parser.add_argument('--text', type=str, default=None)
 parser.add_argument('--audio_path', type=str, default=None)
 parser.add_argument('--image_path', type=str, default=None)
 parser.add_argument('--video_path', type=str, default=None)
+parser.add_argument("--use_audio_in_the_video", action="store_true", help="Use Speech in the video")
+
 args = parser.parse_args()
 
 model_path = args.model_path
@@ -105,13 +107,12 @@ elif audio_path is not None:
     modality = "text"
 
 
-# input audio and video, do not parse audio in the video, else parse audio in the video
-if audio_path:
+# If an external audio file is provided, always use it
+if args.audio_path:
     USE_SPEECH = True
-elif modality == "video":
+# If video input and the flag is set, use the video's audio
+elif args.video_path and args.use_audio_in_the_video:
     USE_SPEECH = True
-else:
-    USE_SPEECH = False
 
 speechs = []
 speech_lengths = []
