@@ -93,7 +93,7 @@ def extract_audio(videos_file_path):
 # video_path = args.video_path
 # text = args.text
 
-def predict(model, text, video_path=None, image_path=None, audio_path=None, use_audio_in_the_video=False):
+def predict(model, text, video_path=None, image_path=None, audio_path=None, use_audio_in_the_video=True):
     USE_SPEECH=False
     
     if video_path is not None:
