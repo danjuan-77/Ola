@@ -45,7 +45,6 @@ tokenizer, model, image_processor, _ = load_pretrained_model(model_path, None)
 model = model.to('cuda').eval()
 model = model.bfloat16()
 
-USE_SPEECH=False
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 
 def load_audio(audio_file_name):
@@ -95,6 +94,8 @@ def extract_audio(videos_file_path):
 # text = args.text
 
 def predict(model, text, video_path=None, image_path=None, audio_path=None, use_audio_in_the_video=False):
+    USE_SPEECH=False
+    
     if video_path is not None:
         modality = "video"
         visual = video_path
@@ -322,3 +323,14 @@ if __name__ == "__main__":
     vid_path = "./data/test.mp4"
     text = "Describe what she say"
     predict(model, text, vid_path)
+    
+    predict(model, text, vid_path)
+    
+    predict(model, text, vid_path)
+    
+    predict(model, text, vid_path)
+    
+    predict(model, text, vid_path)
+    
+    predict(model, text, vid_path)
+    
