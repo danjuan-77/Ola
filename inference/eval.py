@@ -602,6 +602,7 @@ if __name__ == "__main__":
         entry = {
             'id': item.get('id'),
             'task': item.get('task'),
+            'sub_task': item.get('sub_task', None),
             'text': get_real_input(item),
             'audio_list': inp.get('audio_list', None),
             'image_list': inp.get('image_list', None),
@@ -630,7 +631,7 @@ if __name__ == "__main__":
             get_real_path(task_path, data['video'])
             if data['video'] else None
         )
-        print(f"text_input:{text}")
+        print(f">>> text input=:{text}")
         
         # Case 1: only audio_list
         if audio_list and not image_list and not video:
