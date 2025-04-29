@@ -616,6 +616,7 @@ if __name__ == "__main__":
     for data in tqdm(parsed_data):
         _id = data['id']
         _task = data['task']
+        _sub_task = data['subtask']
         text = data['text']
         audio_list = (
             [get_real_path(task_path, p) for p in data["audio_list"]]
@@ -666,6 +667,7 @@ if __name__ == "__main__":
         # print(f"output:>>>>>>>>{output}")
         pred_record = {
             "task": _task,
+            "sub_task": _sub_task,
             "id": _id,
             "predict": output,
         }
