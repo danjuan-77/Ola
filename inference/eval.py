@@ -407,8 +407,8 @@ if __name__ == "__main__":
         image + audio list -> concat audio
         
     """
-    task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LAQA"
-    # task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
+    # task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LAQA"
+    task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
     task_name = f"L{task_path.rsplit('/', 1)[0][-1]}_{task_path.rsplit('/', 1)[-1]}"
     model_name = "ola"
     save_prediction_json = f'/share/nlp/tuwenming/projects/HAVIB/eval/user_outputs/{model_name}/tasks/{task_name}.json'
