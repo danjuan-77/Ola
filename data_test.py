@@ -123,7 +123,7 @@ if __name__ == "__main__":
             [get_real_path(task_path, p) for p in data["image_list"]]
             if data["image_list"] else None
         )
-        video = get_real_path(data['video'])
+        video = get_real_path(task_path, data['video'])
         
         # Case 1: only audio_list
         if audio_list and not image_list and not video:
