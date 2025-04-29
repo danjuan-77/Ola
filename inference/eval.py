@@ -1,6 +1,7 @@
 from email.mime import audio
 import os
 import tempfile
+import traceback
 tempfile.tempdir = "/share/nlp/tuwenming/projects/HAVIB/tmp"
 from pathlib import Path
 os.environ['LOWRES_RESIZE'] = '384x32'
@@ -633,37 +634,58 @@ if __name__ == "__main__":
         )
         print(f">>> text input=:{text}")
         
-        # Case 1: only audio_list
-        if audio_list and not image_list and not video:
-            if len(audio_list) > 1:
-                audio_path = concat_audio(audio_list)
+        try:
+            # Case 1: only audio_list
+            if audio_list and not image_list and not video:
+                if len(audio_list) > 1:
+                    audio_path = concat_audio(audio_list)
+                else:
+                    audio_path = audio_list[0]
                 output = predict(model, text, audio_path=audio_path)
+
+            # Case 2: only one image
+            elif image_list and not audio_list and not video:
+                image_path = image_list[0]
+                output = predict(model, text, image_path=image_path)
+
+            # Case 3: only video
+            elif video and not audio_list and not image_list:
+                output = predict(model, text, video_path=video)
+
+            # Case 4: video + audio_list
+            elif video and audio_list:
+                output = predict(
+                    model,
+                    text,
+                    video_path=video,
+                    use_audio_in_the_video=True
+                )
+
+            # Case 5: image_list + audio_list
+            elif image_list and audio_list and not video:
+                video_path = images_and_audio_to_video(image_list, audio_list, fps=1)
+                output = predict(
+                    model,
+                    text,
+                    video_path=video_path,
+                    use_audio_in_the_video=True
+                )
+
+            # Case 6: audio_list + video (same as Case 4)
+            elif audio_list and video:
+                output = predict(
+                    model,
+                    text,
+                    video_path=video,
+                    use_audio_in_the_video=True
+                )
+
             else:
-                audio_path = audio_list[0]
-                output = predict(model, text, audio_path=audio_path)
-
-        # Case 2: only one image
-        if image_list and not audio_list and not video:
-            image_path = image_list[0]
-            output = predict(model, text, image_path=image_path)
-            
-
-        # Case 3: only video
-        if video and not audio_list and not image_list:
-            output = predict(model, text, video_path=video)
-
-        # Case 4: video + audio_list -> tell predict to use audio in video
-        if video and audio_list:
-            output = predict(model, text, video_path=video, use_audio_in_the_video=True)
-
-        # Case 5: image_list + audio_list -> build video with audio
-        if image_list and audio_list and not video:
-            video_path = images_and_audio_to_video(image_list, audio_list, fps=1)
-            output = predict(model, text, video_path=video_path, use_audio_in_the_video=True)
-
-        # Case 6: audio_list + video (treat like case 4)
-        if audio_list and video:
-            output = predict(model, text, video_path=video, use_audio_in_the_video=True)
+                raise ValueError("Unsupported combination of inputs")
+        except Exception as e:
+            # 捕获任何异常，并把完整 traceback 当作 output
+            tb = traceback.format_exc()
+            output = f"Error during inference:\n{tb}"
 
         # print(f"output:>>>>>>>>{output}")
         pred_record = {
