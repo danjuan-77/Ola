@@ -408,6 +408,10 @@ if __name__ == "__main__":
         
     """
     task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LAQA"
+    # task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
+    task_name = f"L{task_path.rsplit('/', 1)[0][-1]}_{task_path.rsplit('/', 1)[-1]}"
+    model_name = "ola"
+    save_prediction_json = f'/share/nlp/tuwenming/projects/HAVIB/eval/user_outputs/{model_name}/tasks/{task_name}.json'
     data_json_path = os.path.join(task_path, "data.json")
     with open(data_json_path, "r", encoding='utf-8') as f:
         raw_data = json.load(f)
@@ -428,11 +432,11 @@ if __name__ == "__main__":
 
     print(">>>Finished parse raw data...")    
     
-    predict_results = []
+    predictions = []
     
     for data in tqdm(parsed_data):
         _id = data['id']
-        task = data['task']
+        _task = data['task']
         text = data['text']
         audio_list = (
             [get_real_path(task_path, p) for p in data["audio_list"]]
@@ -442,7 +446,10 @@ if __name__ == "__main__":
             [get_real_path(task_path, p) for p in data["image_list"]]
             if data["image_list"] else None
         )
-        video = get_real_path(data['video'])
+        video = (
+            get_real_path(task_path, data['video'])
+            if data['video'] else None
+        )
         
         # Case 1: only audio_list
         if audio_list and not image_list and not video:
@@ -476,11 +483,18 @@ if __name__ == "__main__":
         if audio_list and video:
             output = predict(model, text, video_path=video, use_audio_in_the_video=True)
 
-        print(f"output:>>>>>>>>{output}")
-        
+        # print(f"output:>>>>>>>>{output}")
+        pred_record = {
+            "task": _task,
+            "id": _id,
+            "predict": output,
+        }
+        predictions.append(pred_record)
+        print('>>> ans=:', pred_record)
     
     
-    
+    with open(save_prediction_json, 'w', encoding='utf-8') as json_file:
+        json.dump(predictions, json_file, ensure_ascii=False, indent=4)
     
     # vid_path = "./data/test.mp4"
     # text = "Describe what she say"
