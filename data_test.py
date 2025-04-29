@@ -12,6 +12,8 @@ from moviepy.editor import (
     ImageClip,
     concatenate_videoclips,
 )
+import argparse
+
 
 def concat_audio(audio_paths: List[str]) -> str:
     """
@@ -88,8 +90,20 @@ if __name__ == "__main__":
         image + audio list -> concat audio
         
     """
-    task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LAQA"
-    task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
+    # task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LAQA"
+    # task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
+    parser = argparse.ArgumentParser(
+        description="Run prediction over a dataset described by data.json"
+    )
+    parser.add_argument(
+        "--task_path",
+        type=str,
+        required=True,
+        help="Path to the task folder containing data.json and media files"
+    )
+    args = parser.parse_args()
+    task_path = args.task_path
+    task_name = f"L{task_path.rsplit('/', 1)[0][-1]}_{task_path.rsplit('/', 1)[-1]}"
     
     data_json_path = os.path.join(task_path, "data.json")
     with open(data_json_path, "r", encoding='utf-8') as f:
@@ -113,7 +127,7 @@ if __name__ == "__main__":
     
     predict_results = []
     
-    for data in tqdm(parsed_data):
+    for data in tqdm(parsed_data, desc=f"test evaluating {task_name}"):
         _id = data['id']
         task = data['task']
         text = data['text']

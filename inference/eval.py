@@ -40,7 +40,8 @@ from moviepy.editor import (
     concatenate_videoclips,
 )
 
-# import argparse
+
+import argparse
 
 # parser = argparse.ArgumentParser()
 # parser.add_argument('--model_path', type=str, default='THUdyh/Ola-7b')
@@ -408,7 +409,18 @@ if __name__ == "__main__":
         
     """
     # task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LAQA"
-    task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
+    # task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
+    parser = argparse.ArgumentParser(
+        description="Run prediction over a dataset described by data.json"
+    )
+    parser.add_argument(
+        "--task_path",
+        type=str,
+        required=True,
+        help="Path to the task folder containing data.json and media files"
+    )
+    args = parser.parse_args()
+    task_path = args.task_path
     task_name = f"L{task_path.rsplit('/', 1)[0][-1]}_{task_path.rsplit('/', 1)[-1]}"
     model_name = "ola"
     save_prediction_json = f'/share/nlp/tuwenming/projects/HAVIB/eval/user_outputs/{model_name}/tasks/{task_name}.json'
