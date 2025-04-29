@@ -32,3 +32,6 @@ python data_test.py --task_path /share/nlp/tuwenming/projects/HAVIB/data/levels/
 python data_test.py --task_path /share/nlp/tuwenming/projects/HAVIB/data/levels/level_5/AVLG
 
 python data_test.py --task_path /share/nlp/tuwenming/projects/HAVIB/data/levels/level_5/AVQA
+
+
+# nohup bash eval_datatest_gpu0.sh > /share/nlp/tuwenming/projects/HAVIB/logs/eval_datatest_gpu0_$(date +%Y%m%d%H%M%S).log 2>&1 &
