@@ -412,6 +412,10 @@ if __name__ == "__main__":
     task_name = f"L{task_path.rsplit('/', 1)[0][-1]}_{task_path.rsplit('/', 1)[-1]}"
     model_name = "ola"
     save_prediction_json = f'/share/nlp/tuwenming/projects/HAVIB/eval/user_outputs/{model_name}/tasks/{task_name}.json'
+    os.makedirs(os.path.dirname(save_prediction_json), exist_ok=True)
+    print('>>> save res to:', save_prediction_json)
+    
+    
     data_json_path = os.path.join(task_path, "data.json")
     with open(data_json_path, "r", encoding='utf-8') as f:
         raw_data = json.load(f)

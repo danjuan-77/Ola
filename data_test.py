@@ -89,6 +89,8 @@ if __name__ == "__main__":
         
     """
     task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LAQA"
+    task_path = "/share/nlp/tuwenming/projects/HAVIB/data/levels/level_1/LIQA"
+    
     data_json_path = os.path.join(task_path, "data.json")
     with open(data_json_path, "r", encoding='utf-8') as f:
         raw_data = json.load(f)
