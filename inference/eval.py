@@ -602,7 +602,7 @@ if __name__ == "__main__":
         entry = {
             'id': item.get('id'),
             'task': item.get('task'),
-            'sub_task': item.get('sub_task', None),
+            'subtask': item.get('subtask', None),
             'text': get_real_input(item),
             'audio_list': inp.get('audio_list', None),
             'image_list': inp.get('image_list', None),
@@ -617,7 +617,7 @@ if __name__ == "__main__":
     for data in tqdm(parsed_data):
         _id = data['id']
         _task = data['task']
-        _sub_task = data['subtask']
+        _subtask = data['subtask']
         text = data['text']
         audio_list = (
             [get_real_path(task_path, p) for p in data["audio_list"]]
@@ -668,7 +668,7 @@ if __name__ == "__main__":
         # print(f"output:>>>>>>>>{output}")
         pred_record = {
             "task": _task,
-            "sub_task": _sub_task,
+            "subtask": _subtask,
             "id": _id,
             "predict": output,
         }
