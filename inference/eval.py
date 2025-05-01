@@ -652,7 +652,7 @@ if __name__ == "__main__":
             elif video and not audio_list and not image_list:
                 output = predict(model, text, video_path=video)
 
-            # Case 4: video + audio_list
+            # Case 4: video + audio
             elif video and audio_list:
                 output = predict(
                     model,
