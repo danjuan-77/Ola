@@ -599,12 +599,13 @@ if __name__ == "__main__":
 
             # Case 5: image_list + audio_list
             elif image_list and audio_list and not video:
-                video_path = images_and_audio_to_video(image_list, audio_list, fps=1)
                 audio_path = audio_list[0]
                 if not os.path.exists(audio_path):
                     print("Use only video")
-                    output = predict(model, text, video_path=video) # only video
+                    video_path = images_to_video(image_list, len(image_list), fps=1)
+                    output = predict(model, text, video_path=video_path) # only image list
                 else:
+                    video_path = images_and_audio_to_video(image_list, audio_list, fps=1)
                     output = predict(
                         model,
                         text,
